@@ -4,12 +4,10 @@
     "package": "com.github.clevernucleus.opc.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
-        "PlayerManagerMixin",
-        "LevelPropertiesMixin",
-        "CommandManagerMixin"
+        
     ],
     "client": [
-    	
+        
     ],
     "injectors": {
         "defaultRequire": 1
