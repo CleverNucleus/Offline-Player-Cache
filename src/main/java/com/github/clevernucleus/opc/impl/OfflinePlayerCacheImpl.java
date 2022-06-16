@@ -180,12 +180,15 @@ public final class OfflinePlayerCacheImpl {
 			entry.putUuid("Uuid", uuid);
 			entry.putString("Name", names.getOrDefault(uuid, ""));
 			
+			NbtCompound keys = new NbtCompound();
+			
 			for(CacheableValue<?> key : data.keySet()) {
 				NbtCompound entry2 = new NbtCompound();
 				key.writeToNbt(entry2, data.get(key));
-				entry.put(key.id().toString(), entry2);
+				keys.put(key.id().toString(), entry2);
 			}
 			
+			entry.put("Keys", keys);
 			list.add(entry);
 		}
 		
@@ -199,17 +202,18 @@ public final class OfflinePlayerCacheImpl {
 		
 		for(int i = 0; i < list.size(); i++) {
 			NbtCompound entry = list.getCompound(i);
+			NbtCompound keys = entry.getCompound("Keys");
 			UUID uuid = entry.getUuid("Uuid");
 			String name = entry.getString("Name");
 			
 			if(name.isEmpty()) continue;
 			Map<CacheableValue<?>, Object> data = new HashMap<>();
 			
-			for(String id : entry.getKeys()) {
+			for(String id : keys.getKeys()) {
 				CacheableValue<?> key = KEYS.get(new Identifier(id));
 				
 				if(key == null) continue;
-				Object value = key.readFromNbt(entry.getCompound(id));
+				Object value = key.readFromNbt(keys.getCompound(id));
 				data.put(key, value);
 			}
 			
