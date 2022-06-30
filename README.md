@@ -1,4 +1,5 @@
-# Offline Player Cache
+<img src="img/logo.png" alt="Offline Player Cache" />
+<hr />
 
 ### What is Offline Player Cache?
 
@@ -19,7 +20,7 @@ Mods can register functions that take in a player and output a value/object; thi
  - This API mod does not itself register any cacheable values, and hence does not cache any player data, and therefore does nothing by itself. 
  - To use this API in your mod, you can include the following in your gradle build (see [Modrinth Maven](https://docs.modrinth.com/docs/tutorials/maven/) for more details):
  
-```
+```gradle
 repositories {
     maven {
         name = "Modrinth"
@@ -30,9 +31,10 @@ repositories {
     }
 }
 ```
-```
+
+```gradle
 dependencies {
-    modImplementation "maven.modrinth:offline-player-cache:0.5.0"
-    include "maven.modrinth:offline-player-cache:0.5.0"
+    modImplementation "maven.modrinth:offline-player-cache:<version>"
+    include "maven.modrinth:offline-player-cache:<version>"
 }
 ```
