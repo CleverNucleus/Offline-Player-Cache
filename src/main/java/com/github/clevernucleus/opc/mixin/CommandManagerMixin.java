@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.github.clevernucleus.opc.impl.OfflinePlayerCacheCommand;
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -20,8 +21,8 @@ abstract class CommandManagerMixin {
 	@Shadow
 	private CommandDispatcher<ServerCommandSource> dispatcher;
 	
-	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;findAmbiguities(Lcom/mojang/brigadier/AmbiguityConsumer;)V"))
-	private void opc_init(CommandManager.RegistrationEnvironment environment, CallbackInfo info) {
+	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lcom/mojang/brigadier/CommandDispatcher;setConsumer(Lcom/mojang/brigadier/ResultConsumer;)V"))
+	private void opc_init(CommandManager.RegistrationEnvironment environment, CommandRegistryAccess commandRegistryAccess, CallbackInfo info) {
 		OfflinePlayerCacheCommand.register(this.dispatcher);
 	}
 }
