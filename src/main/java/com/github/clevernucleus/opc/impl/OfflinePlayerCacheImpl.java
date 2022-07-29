@@ -122,7 +122,7 @@ public final class OfflinePlayerCacheImpl {
 			Map<CacheableValue<?>, Object> value = new HashMap<>();
 			KEYS.forEach((identifier, key) -> value.put(key, key.get(player)));
 			this.cache.put(uuid, value);
-			this.nameToId.put(name, uuid);
+			this.nameToId.inverse().put(uuid, name);
 			return true;
 		});
 	}
@@ -130,7 +130,7 @@ public final class OfflinePlayerCacheImpl {
 	public boolean uncache(final ServerPlayerEntity player) {
 		return this.isValid(player, (uuid, name) -> {
 			this.cache.remove(uuid);
-			this.nameToId.remove(name);
+			this.nameToId.inverse().remove(uuid);
 			return true;
 		});
 	}
