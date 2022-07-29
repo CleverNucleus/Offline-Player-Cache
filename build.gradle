@@ -66,6 +66,6 @@ modrinth {
     versionName = "${project.mod_version}"
     versionType = "beta"
     uploadFile = remapJar
-    gameVersions = ["1.19"]
+    gameVersions = ["${project.minecraft_version}"]
     loaders = ["fabric"]
 }
