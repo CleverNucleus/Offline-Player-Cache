@@ -122,7 +122,7 @@ public final class OfflinePlayerCacheImpl {
 			Map<CacheableValue<?>, Object> value = new HashMap<>();
 			KEYS.forEach((identifier, key) -> value.put(key, key.get(player)));
 			this.cache.put(uuid, value);
-			this.nameToId.inverse().put(uuid, name);
+			this.nameToId.forcePut(name, uuid);
 			return true;
 		});
 	}
